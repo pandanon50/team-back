@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(
   cors({
-    origin: ["http://localhost:3060", "tikitaka.com"], // 모든 서버 허용 '*'
+    origin: ["http://localhost:3060", "tikitaka.com", "http://13.125.65.23"], // 모든 서버 허용 '*'
     credentials: true, // 기본값이 false
   })
 );
@@ -68,6 +68,6 @@ app.use("/user", userRouter);
 app.use("/posts", postsRouter);
 app.use("/goal", goalRouter);
 
-app.listen(3065, () => {
+app.listen(80, () => {
   console.log("서버 실행중");
 });
