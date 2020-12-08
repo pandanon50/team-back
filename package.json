@@ -4,7 +4,8 @@
   "description": "backend",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "start": "node app"
   },
   "author": "pandanon50",
   "license": "ISC",
