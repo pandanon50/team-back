@@ -12,6 +12,8 @@ const userRouter = require("./routes/user");
 const goalRouter = require("./routes/goal");
 const postsRouter = require("./routes/posts");
 const db = require("./models");
+const helmet = require("helmet");
+const hpp = require("hpp");
 
 dotenv.config();
 
@@ -26,14 +28,22 @@ const app = express();
 
 passportConfig();
 
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined")); // 좀더 로그가 자세하게 보인다.
+  //보안에 도움되는 패키지
+  app.use(hpp());
+  app.use(helmet());
+} else {
+  // 프론트에서 보낸 데이터를 form 데이터를 req.body에 넣어준다.
+  app.use(morgan("dev"));
+}
+
 app.use(
   cors({
-    origin: "http://localhost:3060", // 모든 서버 허용 '*'
+    origin: ["http://localhost:3060", "tikitaka.com"], // 모든 서버 허용 '*'
     credentials: true, // 기본값이 false
   })
 );
-app.use(morgan("dev"));
-// 프론트에서 보낸 데이터를 form 데이터를 req.body에 넣어준다.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // 쿠키와 세션
